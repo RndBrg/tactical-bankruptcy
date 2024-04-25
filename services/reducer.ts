@@ -50,6 +50,23 @@ export function reducer<S extends State, A extends Actions>(state: S, action: A)
       }
     }
 
+    case 'RESET': {
+      return {
+        ...state,
+        activePlayerIndex: 0,
+        activeRoundIndex: null,
+        focusedPlayerId: null,
+        players: [],
+        rounds: [
+          {
+            startTime: null,
+            playerOrder: [],
+          },
+        ],
+        turns: [],
+      }
+    }
+
     case 'END_PLAYER_TURN': {
       const activeTurn = getActiveTurn(state)
       const activePlayer = getActivePlayer(state)

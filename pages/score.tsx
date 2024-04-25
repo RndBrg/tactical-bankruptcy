@@ -61,7 +61,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="pt-10 overflow-auto">
+      <div className="pt-10 pb-10 overflow-auto">
         {focusedPlayer ? (
           <form
             className="uppercase w-96 divide-y divide-zinc-200 border border-zinc-200 m-auto"
@@ -137,7 +137,7 @@ export default function Home() {
             </div>
           </form>
         ) : (
-          <div className="max-w-5xl m-auto">
+          <div className="flex flex-col items-center gap-10 max-w-5xl m-auto">
             <table className="min-w-full divide-y divide-zinc-200 border border-zinc-200">
               <thead className="bg-zinc-100">
                 <tr>
@@ -228,6 +228,13 @@ export default function Home() {
                 })}
               </tbody>
             </table>
+            <Button 
+              className="w-40" 
+              onClick={() => 
+                dispatch({ type: 'RESET' })}
+            >
+              PLAY AGAIN
+            </Button>
           </div>
         )}
       </div>

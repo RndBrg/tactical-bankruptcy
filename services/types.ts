@@ -41,6 +41,7 @@ export type Actions =
   | { type: 'UPDATE_PLAYER_SCORE'; data: { playerId: string; value?: number; key: string } }
   | { type: 'FOCUS_PLAYER'; data: { playerId: string } }
   | { type: 'BLUR_PLAYER' }
+  | { type: 'RESET' }
 
 export type Faction = {
   id: string
