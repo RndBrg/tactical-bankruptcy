@@ -31,7 +31,7 @@ type Subscriber = (elapsed: number) => void
 
 export function ClockProvider({ children }: Props) {
   const elapsed = useRef<number>(0)
-  const intervalId = useRef<NodeJS.Timer | null>(null)
+  const intervalId = useRef<NodeJS.Timeout | null>(null)
   const subscribers = useRef<Set<Subscriber>>(new Set())
   const [isPaused, setIsPaused] = useState(true)
 

@@ -26,6 +26,8 @@ const validationSchema = Yup.object().shape({
   factionId: Yup.string().required('Required'),
 })
 
+const MAX_PLAYERS_NUMBER = 9
+
 export default function Setup() {
   const router = useRouter()
   const { state, dispatch, canUndo, canRedo } = useGameContext()
@@ -84,9 +86,9 @@ export default function Setup() {
             </IconButton>
           </div>
         </div>
-        <div className="flex-grow flex items-center">
+        <div className="flex flex-grow flex-col gap-5">
           <form
-            className="flex flex-col gap-10 max-w-5xl m-auto w-full items-center relative"
+            className="flex flex-col gap-10 w-full items-center relative py-5"
             onSubmit={handleSubmit}
           >
             {errors.factionId && touched.factionId && (
@@ -97,12 +99,14 @@ export default function Setup() {
             <div className="uppercase text-3xl">
               {hoveredFaction?.name ?? selectedFaction?.name ?? 'Please select a faction'}
             </div>
-            <div className="grid grid-cols-6 gap-4">
+            <div className="flex flex-wrap gap-4 max-w-[980px] w-full justify-center">
               {factions.map(faction => {
                 const selectedFactionColors = players
                   .map(player => factions.find(faction => faction.id === player.factionId)?.color)
                   .filter(Boolean)
-                const disabled = selectedFactionColors.includes(faction.color)
+                const disabled =
+                  selectedFactionColors.includes(faction.color) ||
+                  players.length === MAX_PLAYERS_NUMBER
 
                 return (
                   <FactionBadge
@@ -135,11 +139,18 @@ export default function Setup() {
               <div className="flex gap-2 relative">
                 <Input
                   ref={nameInput}
+                  data-1p-ignore
                   className="flex-grow"
                   value={name}
                   onChange={({ currentTarget }) => setFieldValue('name', currentTarget.value)}
+                  disabled={players.length === MAX_PLAYERS_NUMBER}
                 />
-                <Button className="flex-shrink-0" color="black" type="submit">
+                <Button
+                  className="flex-shrink-0"
+                  color="black"
+                  type="submit"
+                  disabled={players.length === MAX_PLAYERS_NUMBER}
+                >
                   Add Player
                 </Button>
                 {errors.name && touched.name && (
@@ -150,6 +161,11 @@ export default function Setup() {
               </div>
             </div>
           </form>
+          {players.length === MAX_PLAYERS_NUMBER && (
+            <div className="text-center text-green-500 uppercase text-2xl mb-6">
+              maximum number of players reached!
+            </div>
+          )}
         </div>
 
         <div className="bg-black h-20 flex items-center justify-between px-4 gap-2 min-w-0">
