@@ -99,7 +99,7 @@ export default function Setup() {
             <div className="uppercase text-3xl">
               {hoveredFaction?.name ?? selectedFaction?.name ?? 'Please select a faction'}
             </div>
-            <div className="grid gap-4 max-w-[960px] w-full grid-cols-6">
+            <div className="flex flex-wrap gap-4 max-w-[980px] w-full justify-center">
               {factions.map(faction => {
                 const selectedFactionColors = players
                   .map(player => factions.find(faction => faction.id === player.factionId)?.color)
